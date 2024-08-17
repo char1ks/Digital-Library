@@ -36,9 +36,6 @@
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="4101897d-b45b-4def-8684-e37e8a96c21a" />
   </component>
-  <component name="DBNavigator.Project.DatasetFilterManager">
-    <filter-actions connection-id="4101897d-b45b-4def-8684-e37e8a96c21a" dataset="public.books" active-filter-id="" />
-  </component>
   <component name="DBNavigator.Project.ExecutionManager">
     <retain-sticky-names value="false" />
   </component>
