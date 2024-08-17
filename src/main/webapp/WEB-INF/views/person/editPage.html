@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${personToEdit.getFullName()}"></title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4; /* Светлый фон страницы */
+            color: #333; /* Темно-серый цвет текста */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Высота экрана */
+            margin: 0; /* Убираем отступы */
+        }
+        form {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ccc; /* Светло-серая рамка */
+            border-radius: 5px;
+            background-color: #fff; /* Белый фон для формы */
+            width: 300px; /* Ширина формы */
+        }
+        label {
+            margin-bottom: 5px; /* Отступ снизу для меток */
+            display: block; /* Отображение меток в блоке */
+        }
+        input[type="text"], select {
+            width: 100%; /* Ширина полей ввода */
+            padding: 5px; /* Отступы внутри полей */
+            margin-bottom: 10px; /* Отступ снизу */
+            border: 1px solid #ccc; /* Светло-серая рамка для полей */
+            border-radius: 3px; /* Закругление углов */
+        }
+        input[type="submit"] {
+            background-color: #444; /* Темно-серый цвет кнопки */
+            color: #fff; /* Белый цвет текста */
+            padding: 5px 10px; /* Отступы внутри кнопки */
+            border: none; /* Убираем границу */
+            border-radius: 3px; /* Закругление углов */
+            cursor: pointer; /* Указатель при наведении */
+            width: 100%; /* Ширина кнопки */
+        }
+        input[type="submit"]:hover {
+            background-color: #222; /* Очень темный серый цвет при наведении */
+        }
+        div.error {
+            color: red; /* Цвет текста ошибок */
+            font-size: 12px; /* Размер шрифта для ошибок */
+            margin-top: 5px; /* Отступ сверху для ошибок */
+        }
+    </style>
+</head>
+<body>
+<form th:method="PATCH" th:action="@{/person/{id}(id=${personToEdit.getId()})}" th:object="${personToEdit}">
+    <label for="FullName">Name:</label>
+    <input type="text" th:field="*{FullName}" id="FullName" value="${personToEdit.getFullName()}">
+    <div class="error" th:if="${#fields.hasErrors('FullName')}" th:errors="*{FullName}">Name is incorrect</div>
+
+    <label for="birthDate">Birth date:</label>
+    <input type="text" th:field="*{birthDate}" id="birthDate" value="${personToEdit.getBirthDate()}">
+    <div class="error" th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}">Year is incorrect</div>
+
+    <input type="submit" value="Add this book!">
+</form>
+</body>
+</html>

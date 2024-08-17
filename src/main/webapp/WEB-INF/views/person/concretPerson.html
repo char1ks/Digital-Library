@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${concretPerson.getFullName()}"></title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4; /* Светлый фон страницы */
+            margin: 0;
+            padding: 20px;
+        }
+        .book {
+            background: white; /* Белый фон для блока книги */
+            border: 1px solid #ccc; /* Светло-серая рамка */
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Легкая тень */
+        }
+        .book h1 {
+            font-size: 24px;
+            color: #222; /* Очень темный серый цвет заголовка */
+            margin-bottom: 10px;
+        }
+        .book h2 {
+            font-size: 20px;
+            color: #444; /* Темно-серый цвет */
+            margin-bottom: 20px;
+        }
+        .book h3 {
+            font-size: 20px;
+            color: #666; /* Средне-серый цвет */
+            margin-bottom: 10px;
+        }
+        .book a {
+            font-size: 16px;
+            color: #000; /* Черный цвет ссылок */
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        .book a:hover {
+            text-decoration: underline; /* Подчеркивание при наведении */
+        }
+        form {
+            display: inline-block;
+            margin-top: 10px;
+        }
+        input[type="submit"] {
+            background-color: #444; /* Темно-серый цвет кнопки */
+            color: #fff; /* Белый цвет текста */
+            padding: 5px 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #222; /* Очень темный серый цвет при наведении */
+        }
+        .books-list {
+            margin-top: 20px; /* Отступ сверху для списка книг */
+        }
+        .return-button {
+            background-color: #444; /* Темно-серый цвет кнопки */
+            color: #fff; /* Белый цвет текста */
+            padding: 5px 10px; /* Отступы внутри кнопки */
+            border: none; /* Убираем границу */
+            border-radius: 3px; /* Закругление углов */
+            cursor: pointer; /* Указатель при наведении */
+            margin-top: 5px; /* Отступ сверху */
+        }
+
+        .return-button:hover {
+            background-color: #222; /* Темно-серый цвет при наведении */
+        }
+    </style>
+</head>
+<body>
+<div class="book">
+    <h1>Name: <span th:text="${concretPerson.getFullName()}"></span></h1>
+    <h3>Birth date: <span th:text="${concretPerson.getBirthDate()}"></span></h3>
+    <br>
+    <div class="books-list">
+        <h2>Books:</h2>
+        <div th:each="book : ${allPersonBooks}" class="book">
+            <h3 th:text="${book.getNomination()}"></h3> <!-- Предполагается, что у книги есть метод getNomination() -->
+            <p th:text="${book.getAuthor()}"></p> <!-- Предполагается, что у книги есть метод getAuthor() -->
+            <a th:href="@{/books/{id}(id=${book.getId()})}">View Details</a>
+
+            <!-- Кнопка "Отдана" -->
+            <form th:method="POST" th:action="@{/books/{id}/return(id=${book.getId()})}">
+                <input type="submit" value="Was given away!" class="return-button">
+            </form>
+        </div>
+    </div>
+    <a th:href="@{/person/{id}/edit(id=${concretPerson.getId()})}">Edit</a>
+    <form th:method="DELETE" th:action="@{/person/{id}(id=${concretPerson.getId()})}">
+        <input type="submit" value="Delete this reader!">
+    </form>
+</div>
+</body>
+</html>
